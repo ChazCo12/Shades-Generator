@@ -1,20 +1,19 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
+import { rgb2hex } from './utils';
 
 
 export default function Darker({props}) {
     const baseColour = props;
     const shadeArr = [];
+    const [alert, setAlert] = useState(false)
 
-
-    const rgb2hex = (r,g,b) => {
-        return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
-    }
-
-    const componentToHex = (c) => {
-        var hex = c.toString(16);
-        return hex.length === 1 ? "0" + hex : hex;
-    }
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setAlert(false)
+        }, 500)
+            return () => clearTimeout(timeout)
+        }, [alert])
 
 
     const generateShades = (rgbValues) => {
@@ -30,9 +29,8 @@ export default function Darker({props}) {
           }
         })
 
-        if(darkerShade[0] < 0 || darkerShade[1] < 0 || darkerShade[2] < 0){
-            console.log("finished");
-            console.log(shadeArr)
+        if(shadeArr.length >= 10){
+
         }else{
             const hexVal = rgb2hex(darkerShade[0],darkerShade[1],darkerShade[2])
             shadeArr.push(hexVal);
@@ -44,7 +42,18 @@ export default function Darker({props}) {
     generateShades(baseColour);
     return<>
         {shadeArr.map((shade,index) => {
-          return <div key={index} className='colourBlock' style={{"backgroundColor": shade}}></div>
+            console.log(shade)
+            return <div key={index} 
+            className='colourBlock' 
+            style={{"backgroundColor": shade}}
+            onClick={() => {
+                setAlert(true)
+                navigator.clipboard.writeText(shade)
+            }}
+            >
+            <p className='displayHex'>{shade}</p>
+            {alert ? <p>Copied</p> : null}
+            </div>
         })}
     </>
 }

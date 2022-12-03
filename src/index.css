@@ -62,7 +62,7 @@ Global Styles
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  background: #152238;
+  background: #fff;
   color: var(--clr-grey-1);
   line-height: 1.5;
   font-size: 0.875rem;
@@ -120,6 +120,7 @@ label{
 
 input{
   padding: 10px;
+  border-radius: 5px;
 }
 @media screen and (min-width: 800px) {
   h1 {
@@ -152,12 +153,12 @@ input{
 
 .container{
   background-color: #fff;
-  height: 600px;
-  width: 550px;
+  height: 650px;
+  width: 700px;
   position: relative;
   top: 50px;
   margin: auto;
-  border-radius: 25px;
+  border-radius: 5px;
   text-align: center;
   box-shadow: -20px 30px 20px rgba(0,0,0,0.2);
 }
@@ -174,8 +175,8 @@ input{
 .colourBox{
   width: 175px;
   height: 80%;
-  border-radius: 20px;
-  border: 2px solid #152238;
+  border-radius: 5px;
+  border: none;
 }
 
 .formBox{
@@ -200,13 +201,13 @@ input{
 .colourGrid{
   position: relative;
   display: grid;
-  height: 40%;
+  height: 57%;
   width: 100%;
-  grid-template-columns: repeat(auto-fill,55px);
+  grid-template-columns: repeat(auto-fill,70px);
   column-gap: 0px;
   justify-items: center;
   align-items: center;
-  background-color: #222;
+  background-color: transparent;
 }
 
 .inputBox{
@@ -214,7 +215,6 @@ input{
 }
 
 .buttonBox{
-  margin-bottom: 40px;
   z-index: 2;
 }
 
@@ -230,7 +230,7 @@ input{
   font-weight: bold;
   text-align: center;
   align-items: center;
-  transition: 0.5s;
+  transition: 0.2s;
   z-index: 2;
 }
 .toggleButton::after{
@@ -242,15 +242,15 @@ input{
   height: 100%;
   background: #152238;
   transition-timing-function: linear;
-  transition: 0.5s;
+  transition: 0.2s;
   z-index: -11;
   border: 1px solid #152238;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
 }
 
 .toggleButton:hover{
   color: #fff;
-  border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
 }
 
 .toggleButton:hover::after{
@@ -265,5 +265,32 @@ input{
   position: relative;
   width: 100%;
   height: 100%;
+  transition: 0.5s;
 }
 
+.colourBlock:hover {
+  position: relative;
+  width: 150%;
+  height: 110%;
+  z-index: 2;
+  border-radius: 5px;
+}
+
+.displayHex{
+  color: #fff;
+  position: relative;
+  top: 100%;
+}
+
+
+.random{
+  padding: 8px;
+  border: none;
+  font-size: 40px;
+  background-color: transparent;
+}
+
+.dice{
+  color: #152238;
+  padding-bottom: 10px;
+}
