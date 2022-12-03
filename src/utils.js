@@ -7,9 +7,9 @@ export const hex2rgb = (hex) => {
     return [ r, g, b ];
 }
 
-const componentToHex = (c) => {
+export const componentToHex = (c) => {
     var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
+    return hex.length === 1 ? "0" + hex : hex;
 }
 
 export const rgb2hex = (r,g,b) => {

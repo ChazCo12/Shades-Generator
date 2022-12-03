@@ -261,3 +261,9 @@ input{
   margin: 0px;
 }
 
+.colourBlock{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+

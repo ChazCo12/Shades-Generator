@@ -9,30 +9,33 @@ import Lighter from './Lighter';
 import Darker from './Darker';
 
 function App() {
-  const [colour,setColour] = useState("#000000");
+  const [hex,setHex] = useState("#000000");
   const [lighter,setLighter] = useState(false);
-  const [darker,setDarker] = useState(true)
+  const [darker,setDarker] = useState(false);
   const [rgb,setRgb] = useState([])
+  const [toggled,setToggled] = useState(false)
 
 
   const handleSubmit = (e) => {
+    setToggled(!toggled);
     e.preventDefault();
-    const rgbVal = hex2rgb(colour);
-    setRgb(rgbVal)
+    const rgbVal = hex2rgb(hex);
+    setRgb(rgbVal);
+    setToggled(!toggled)
   }
 
   return (<>
     <div className='container'>
       <h2>Shades Generator</h2>
       <section className='inputContainer'>
-        <div className="colourBox" style={{"backgroundColor": colour}}></div>
+        <div className="colourBox" style={{"backgroundColor": hex}}></div>
         <div className="formBox">
           <div className='inputBox'>
             <input 
               type="text" 
               name='hexCode'
-              value={colour}
-              onChange={(e) => setColour(e.target.value)}
+              value={hex}
+              onChange={(e) => setHex(e.target.value)}
               placeholder="Enter 6-digit Hex Value"
             />
             <button type='submit' className='btnSearch' onClick={handleSubmit}>Go</button>
@@ -44,7 +47,7 @@ function App() {
       </div>
       </section>
       <div className='colourGrid'>
-        {darker ? <Darker props={rgb}/> : <Lighter props={rgb}/>}
+        {toggled ? <Darker props={rgb}/>  : null}
       </div>
     </div>
   </>
