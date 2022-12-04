@@ -1,21 +1,20 @@
 import React, { useState,useEffect } from 'react';
 
-import { FaLightbulb , FaMoon,FaDice} from 'react-icons/fa';
+import {FaDice} from 'react-icons/fa';
 
 import { hex2rgb } from './utils';
 
 import { rgb2hex } from './utils';
 
-import Lighter from './Lighter';
+import { arrayToString } from './utils';
 
-import Darker from './Darker';
+import Display from './Display';
 
 function App() {
-  const [hex,setHex] = useState("#00ffff");
-  const [lighter,setLighter] = useState(false);
-  const [darker,setDarker] = useState(false);
+  const [hex,setHex] = useState("");
   const [rgb,setRgb] = useState([])
-
+  const [rgbBackground,setRgbBackground] = useState("")
+  const [button,setButton] = useState(false)
 
   const randomHexCode = () => {
     const randomRgb = []
@@ -23,44 +22,31 @@ function App() {
     const g = Math.floor(Math.random() * (255 - 0))
     const b = Math.floor(Math.random() * (255 - 0))
     randomRgb.push(r,g,b)
+    const rgbString = arrayToString(randomRgb)
+    setRgbBackground(rgbString)
     setRgb(randomRgb)
     const randomHex = rgb2hex(r,g,b)
     setHex(randomHex);
-
+    setButton(true)
   }
 
-
-const handleLight = () => {
-  if(lighter){
-    setLighter(false);
-  }else{
-    setLighter(true);
-    setDarker(false);
+  const handleSubmit = () => {
+    const rgbVal = hex2rgb(hex);
+    const rgbString = arrayToString(rgbVal)
+    setRgbBackground(rgbString)
+    setRgb(rgbVal);
   }
 
-  const rgbVal = hex2rgb(hex);
-  setRgb(rgbVal);
+  useEffect(() => {
+    randomHexCode()
+  },[])
 
-}
-
-const handleDark = () => {
-  if(darker){
-    setDarker(false);
-  }else{
-    setDarker(true);
-    setLighter(false);
-  }
-
-  const rgbVal = hex2rgb(hex);
-  setRgb(rgbVal);
-
-}
-  return (
-  <body style={{"backgroundColor": hex}}>
+  return <>
+  <body style={{"backgroundColor": rgbBackground}}>
     <div className='container'>
       <h2>Shades Generator</h2>
       <section className='inputContainer'>
-        <div className="colourBox" style={{"backgroundColor": hex}}></div>
+        <div className="colourBox" style={{"backgroundColor": rgbBackground}}></div>
         <div className="formBox">
           <div className='inputBox'>
             <input 
@@ -70,21 +56,19 @@ const handleDark = () => {
               onChange={(e) => setHex(e.target.value)}
               placeholder="Enter 6-digit Hex Value"
             />
+            <button type='submit' className='toggleButton' onClick={() => handleSubmit()}>Search</button>
         </div>
         <div className="buttonBox">
-          <button type='button' className='toggleButton lightButton' onClick={() => handleLight()}>Lighter <FaLightbulb className='icon'></FaLightbulb></button>
-          <button type='button' className='toggleButton darkButton' onClick={() => handleDark()}>Darker <FaMoon className='icon'></FaMoon></button>
           <button type='button' className='random' onClick={() => randomHexCode()}><FaDice className='dice'></FaDice></button>
         </div>
       </div>
       </section>
       <div className='colourGrid'>
-        {lighter ? <Lighter props={rgb}/> : null}
-        {darker ? <Darker props={rgb}/> : null}
+        {button ? <Display props={rgb}></Display> : null}
       </div>
     </div>
   </body>
-  )
+  </>
 }
 
 export default App

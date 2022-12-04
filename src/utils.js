@@ -16,3 +16,6 @@ export const rgb2hex = (r,g,b) => {
   return '#' + componentToHex(r) + componentToHex(g) + componentToHex(b);
 }
 
+export const arrayToString = (rgb) => {
+  return `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`
+}
